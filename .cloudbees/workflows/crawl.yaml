@@ -52,7 +52,7 @@ jobs:
 
       - id: check-vulnerabilities
         name: Check vulnerabilities
-        uses: calculi-corp/policy-service/actions/check-policy@discover
+        uses: calculi-corp/policy-service/actions/check-policy@poc-v0.1
         with:
           policy: vuln-gate
           input-file: /cloudbees/workspace/policy-input.json
