@@ -57,3 +57,8 @@ jobs:
           policy: vuln-gate
           input-file: /cloudbees/workspace/policy-input.json
 
+      - name: check-vulnerabilities-with-public-action
+        uses: cloudbees-io/policy-check@wip
+        with:
+          policy: vuln-gate
+          input-file: /cloudbees/workspace/policy-input.json
