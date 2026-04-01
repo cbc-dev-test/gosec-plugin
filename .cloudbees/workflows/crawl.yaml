@@ -57,6 +57,13 @@ jobs:
           policy: vuln-gate
           input-file: /cloudbees/workspace/policy-input.json
 
+      - id: log-data
+        name: Debug logging of env info
+        uses: docker://alpine:latest
+        shell: sh
+        run: |
+          echo "URL: ${{ cloudbees.api.url }}"
+
       - name: check-vulnerabilities-with-public-action
         uses: cloudbees-io/policy-check@wip
         with:
