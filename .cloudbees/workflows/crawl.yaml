@@ -29,10 +29,6 @@ jobs:
           echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
           echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
 
-      # Transform gosec output to policy engine JSON
-      #   critical-count + very-high-count → CRITICAL
-      #   high-count → HIGH
-      #   medium-count → MEDIUM
       - id: transform-input
         name: Transform gosec output to policy input
         uses: docker://alpine:latest
@@ -51,22 +47,9 @@ jobs:
         run: |
           cat /cloudbees/workspace/policy-input.json
 
-      - id: check-vulnerabilities
-        name: Check vulnerabilities
-        uses: calculi-corp/policy-service/actions/check-policy@poc-v0.1
-        with:
-          policy: vuln-gate
-          input-file: /cloudbees/workspace/policy-input.json
-
-      - id: log-data
-        name: Debug logging of env info
-        uses: docker://alpine:latest
-        shell: sh
-        run: |
-          echo "URL: ${{ cloudbees.api.url }}"
-
       - name: check-vulnerabilities-with-public-action
         uses: cloudbees-io/policy-check@wip
         with:
           policy: vuln-gate
-          input-file: /cloudbees/workspace/policy-input.json
+          # input-file: /cloudbees/workspace/policy-input.json
+          input-data: ${{ steps.gosec-step.outputs.policy-subject }}
