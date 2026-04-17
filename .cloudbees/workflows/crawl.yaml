@@ -32,6 +32,6 @@ jobs:
       - name: check-vulnerabilities-with-public-action
         uses: cloudbees-io/policy-check@main
         with:
-          policy: vuln-gate
+          policy: 22f76106-3661-409f-b654-42ab4a052fe4
           # input-file: /cloudbees/workspace/policy-input.json
           input-data: ${{ steps.gosec-step.outputs.policy-subject }}
