@@ -1,6 +1,6 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: crawl
+name: gosec-with-policy-check
 on:
   workflow_dispatch: {}
 permissions:
@@ -29,26 +29,8 @@ jobs:
           echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
           echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
 
-      - id: transform-input
-        name: Transform gosec output to policy input
-        uses: docker://alpine:latest
-        shell: sh
-        run: |
-          CRITICAL=$(( ${{ steps.gosec-step.outputs.critical-count }} + ${{ steps.gosec-step.outputs.very-high-count }} ))
-          HIGH=${{ steps.gosec-step.outputs.high-count }}
-          MEDIUM=${{ steps.gosec-step.outputs.medium-count }}
-          cat > /cloudbees/workspace/policy-input.json << EOF
-          {"vulnerabilities":{"counts":{"CRITICAL":${CRITICAL},"HIGH":${HIGH},"MEDIUM":${MEDIUM}}}}
-          EOF
-
-      - name: Print policy input
-        uses: docker://alpine:latest
-        shell: sh
-        run: |
-          cat /cloudbees/workspace/policy-input.json
-
       - name: check-vulnerabilities-with-public-action
-        uses: cloudbees-io/policy-check@wip
+        uses: cloudbees-io/policy-check@main
         with:
           policy: vuln-gate
           # input-file: /cloudbees/workspace/policy-input.json
