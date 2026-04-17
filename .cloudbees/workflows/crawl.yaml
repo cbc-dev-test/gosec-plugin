@@ -27,6 +27,7 @@ jobs:
           echo "High: ${{ steps.gosec-step.outputs.high-count }}"
           echo "Medium: ${{ steps.gosec-step.outputs.medium-count }}"
           echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
+          echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
 
       # Transform gosec output to policy engine JSON
       #   critical-count + very-high-count → CRITICAL
