@@ -29,7 +29,8 @@ jobs:
           echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
           echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
 
-      - name: check-vulnerabilities-with-public-action
+      # policy: crit lte 2 -> block
+      - name: check-vulnerabilities
         uses: cloudbees-io/policy-check@main
         with:
           policy: 5a383327-7095-48c9-8e8f-a6673c161e7d
