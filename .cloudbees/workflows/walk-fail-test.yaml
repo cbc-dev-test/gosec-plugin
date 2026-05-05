@@ -10,38 +10,28 @@ permissions:
 jobs:
   scan-and-evaluate:
     steps:
-    #  - name: checkout-source-code
-    #    uses: cloudbees-io/checkout@v2
+      - name: checkout-source-code
+        uses: cloudbees-io/checkout@v2
 
-     # - name: Run Gosec Scan
-     #   id: gosec-step
-     #   uses: cloudbees-io/gosec-plugin@CBP-40852 # was v1
+      - name: Run Gosec Scan
+        id: gosec-step
+        uses: cloudbees-io/gosec-plugin@CBP-40852 # was v1
 
-      #- id: print-gosec-outputs
-      #  name: Print gosec outputs
-      #  uses: docker://alpine:latest
-      #  run: |
-      #    echo "Gosec outputs:"
-      #    echo "Critical: ${{ steps.gosec-step.outputs.critical-count }}"
-      #    echo "Very high: ${{ steps.gosec-step.outputs.very-high-count }}"
-      #    echo "High: ${{ steps.gosec-step.outputs.high-count }}"
-      #    echo "Medium: ${{ steps.gosec-step.outputs.medium-count }}"
-      #    echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
-      #    echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
+      - id: print-gosec-outputs
+        name: Print gosec outputs
+        uses: docker://alpine:latest
+        run: |
+          echo "Gosec outputs:"
+          echo "Critical: ${{ steps.gosec-step.outputs.critical-count }}"
+          echo "Very high: ${{ steps.gosec-step.outputs.very-high-count }}"
+          echo "High: ${{ steps.gosec-step.outputs.high-count }}"
+          echo "Medium: ${{ steps.gosec-step.outputs.medium-count }}"
+          echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
+          echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
 
-      # temporry transform, {} -> []
-      # - id: wrap-policy-subject                                                                                                                                                                                                                                                                                                                           
-      #   name: Wrap policy subject as array                                                                                                                                                                                                                                                                                                                
-      #   uses: docker://alpine:latest                                                                                                                                                                                                                                                                                                                      
-      #   run: |                                                                                                                                                                                                                                                                                                                                            
-      #       apk add --no-cache jq                                                                                                                                                                                                                                                                                                                           
-      #       echo '${{ steps.gosec-step.outputs.policy-subject }}' | jq -c '[.]' > /cloudbees/workspace/policy-input.json    
-      #       echo '${{ steps.gosec-step.outputs.policy-subject }}' | jq -c '[.]'   
-
-      # policy: crit lte 2 -> block
+     
       - name: check-vulnerabilities
         uses: cloudbees-io/policy-check@main
         with:
-          policy: cf78ccd6-b125-4378-ab1f-078ce6fe8d1d
-          # input-file: /cloudbees/workspace/policy-input.json
-          input-data:  '[{"type":"sast_scan","data":{"completed":false,"scanned_at":"2026-04-29T10:00:00Z","commit_sha":"a12c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"}}]' 
+          policy: e93e181e-a1e9-4c9c-abf8-e4a2860754da
+          input-data: ${{steps.gosec-step.outputs}}
