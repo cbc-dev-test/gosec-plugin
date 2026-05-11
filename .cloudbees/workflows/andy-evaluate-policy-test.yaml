@@ -37,7 +37,7 @@ jobs:
           TOTAL=$(( $CRITICAL + $HIGH + $MEDIUM + $LOW ))
           cat > /cloudbees/workspace/test-input.json << EOF
           [{
-            "type": "vulnerability_scan_summary",
+            "type": "vulnerability_scan",
             "data": {
               "summary": {
                 "by_severity": {
