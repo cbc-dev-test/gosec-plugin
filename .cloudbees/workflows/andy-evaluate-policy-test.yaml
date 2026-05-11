@@ -1,0 +1,43 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: andy-evaluate-policy-test
+on:
+  workflow_dispatch:
+    inputs:
+      critical:
+        type: number
+        default: 0
+      high:
+        type: number
+        default: 0
+      medium:
+        type: number
+        default: 0
+      policy:
+        type: string
+        default: a08e63ae-a97e-4f17-897f-6d209bc0b69c
+permissions:
+  scm-token-own: read
+  scm-token-org: read
+  id-token: write
+jobs:
+  check:
+    steps:
+      - name: Create test input
+        uses: docker://alpine:latest
+        shell: sh
+        run: |
+          cat > "$CLOUDBEES_OUTPUTS/policy-subject" << EOF
+          [{"type": "vulnerability_scan_summary","data":{"summary":{"by_severity":{"total":0,"critical":${{ inputs.critical }},"high":${{ inputs.high }},"medium":${{ inputs.medium }},"low":${{ inputs.low }} }}}}]
+          EOF
+      - name: Print test input
+        uses: docker://alpine:latest
+        shell: sh
+        run: |
+          cat "$CLOUDBEES_OUTPUTS/policy-subject"
+      - id: check-vulnerabilities
+        name: Check vulnerabilities
+        uses: ./actions/check-policy
+        with:
+          policy: ${{ inputs.policy }}
+          input-file: "$CLOUDBEES_OUTPUTS/policy-subject"
