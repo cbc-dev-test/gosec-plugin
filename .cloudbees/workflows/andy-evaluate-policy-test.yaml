@@ -13,6 +13,9 @@ on:
       medium:
         type: number
         default: 0
+      low:
+        type: number
+        default: 0  
       policy:
         type: string
         default: a08e63ae-a97e-4f17-897f-6d209bc0b69c
