@@ -35,7 +35,7 @@ jobs:
           MEDIUM=0
           LOW=0
           TOTAL=$(( $CRITICAL + $HIGH + $MEDIUM + $LOW ))
-          cat > "$CLOUDBEES_OUTPUTS/policy-subject" << EOF
+          cat > /cloudbees/workspace/test-input.json << EOF
           [{
             "type": "vulnerability_scan_summary",
             "data": {
@@ -67,10 +67,10 @@ jobs:
         uses: docker://alpine:latest
         shell: sh
         run: |
-          cat "$CLOUDBEES_OUTPUTS/policy-subject"
+          cat /cloudbees/workspace/test-input.json
       - id: check-vulnerabilities
         name: Check vulnerabilities
         uses: cloudbees-io/policy-check
         with:
           policy: ${{ inputs.policy }}
-          input-file: "$CLOUDBEES_OUTPUTS/policy-subject"
+          input-file: /cloudbees/workspace/test-input.json
