@@ -33,5 +33,5 @@ jobs:
       - name: check-vulnerabilities
         uses: cloudbees-io/policy-check@main
         with:
-          policy: f2ca2034-36f6-447e-8d27-b90aa77a6c69
+          policy: 751ffe01-bd0e-4c75-b5fa-34ba301e2a7d
           input-data: ${{steps.gosec-step.outputs.policy-subject}}
