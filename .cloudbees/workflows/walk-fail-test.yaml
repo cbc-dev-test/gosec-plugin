@@ -31,7 +31,7 @@ jobs:
 
      
       - name: check-vulnerabilities with approval
-        uses: cloudbees-io/policy-utils/evaluate-policy/workflow.yml@v1
+        uses: cloudbees-io/policy-utils/evaluate-policy@v1
         with:
           policy: 9517fa03-035b-411c-a8d1-bafb4345697f
           input-data: ${{steps.gosec-step.outputs.policy-subject}}
