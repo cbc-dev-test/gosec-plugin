@@ -30,8 +30,8 @@ jobs:
           echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
 
      
-      - name: check-vulnerabilities
-        uses: cloudbees-io/policy-check@main
+      - name: check-vulnerabilities with approval
+        uses: cloudbees-io/policy-utils/evaluate-policy/workflow.yml@v1
         with:
-          policy: dad557a6-e20d-4456-a275-795ac20292c7
+          policy: 9517fa03-035b-411c-a8d1-bafb4345697f
           input-data: ${{steps.gosec-step.outputs.policy-subject}}
