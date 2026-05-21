@@ -33,7 +33,7 @@ jobs:
   evalute:
     needs:
       - scan
-    uses: cloudbees-io/policy-utils/evaluate-policy@v1
+    uses: cloudbees-io/policy-utils/evaluate-policy/workflow.yml@v0.1
     with:
           policy: 9517fa03-035b-411c-a8d1-bafb4345697f
           input-data: ${{needs.scan.outputs.scan-results}}
