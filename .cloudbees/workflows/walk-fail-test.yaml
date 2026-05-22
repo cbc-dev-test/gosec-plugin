@@ -24,7 +24,7 @@ jobs:
           TOTAL=$(( $CRITICAL + $HIGH + $MEDIUM + $LOW ))
           cat > "$CLOUDBEES_OUTPUTS/policy-subject" << EOF
           [{
-            "type": "vulnerability_scan_summary",
+            "type": "vulnerability_scan",
             "data": {
               "summary": {
                 "by_severity": {
@@ -57,5 +57,5 @@ jobs:
     needs:
       - scan-and-evaluate
     with:
-      policy-id: 5aa56ae9-de50-4d7b-9e0d-3a91e0f40190
+      policy-id: 9517fa03-035b-411c-a8d1-bafb4345697f
       input-data: ${{ needs.scan-and-evaluate.outputs.policy-subject }}
