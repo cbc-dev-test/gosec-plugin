@@ -13,6 +13,7 @@ jobs:
       policy-subject: ${{ steps.gosec-step.outputs.policy-subject }}
     steps:
         - name: checkout-source-code
+          id: getscm
           uses: cloudbees-io/checkout@v1
         
         - id: gosec-step
