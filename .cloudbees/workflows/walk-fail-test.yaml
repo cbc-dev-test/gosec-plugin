@@ -30,10 +30,10 @@ jobs:
             echo "Medium: ${{ steps.gosec-step.outputs.medium-count }}"
             echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
             echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
-  #policy-evaluation:
-  #  uses: cloudbees-io/policy-utils/evaluate-policy/workflow.yml@v0.1
-  #  needs:
-  #    - scan-and-evaluate
-  #  with:
-  #    policy-id: 9517fa03-035b-411c-a8d1-bafb4345697f
-  #    input-data: ${{ needs.scan-and-evaluate.outputs.policy-subject }}
+  policy-evaluation:
+    uses: cloudbees-io/policy-utils/evaluate-policy/workflow.yml@v0.1
+    needs:
+    - scan-and-evaluate
+    with:
+      policy-id: 9517fa03-035b-411c-a8d1-bafb4345697f
+      input-data: ${{ needs.scan-and-evaluate.outputs.policy-subject }}
