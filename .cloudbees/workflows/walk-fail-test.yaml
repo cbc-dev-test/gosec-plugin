@@ -22,7 +22,7 @@ jobs:
             ORG: ${{ cloudbees.org.id }}
             ACCESS_KEY: ${{ cloudbees.api.token }}
             URL: ${{ cloudbees.api.url }}
-            POLICY_SUBJECT: ${{ steps.make-input.outputs.policy-subject }}
+            POLICY_SUBJECT: ${{ steps.gosec-step.outputs.policy-subject }}
           run: |
             echo "$URL"
             echo "$ORG"
