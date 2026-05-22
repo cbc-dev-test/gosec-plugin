@@ -9,8 +9,8 @@ permissions:
   id-token: write
 jobs:
   scan-and-evaluate:
-   # outputs:
-   #   policy-subject: ${{ steps.gosec-step.outputs.policy-subject }}
+    outputs:
+      policy-subject: ${{ steps.gosec-step.outputs.policy-subject }}
     steps:
         - name: checkout-source-code
           id: getscm
