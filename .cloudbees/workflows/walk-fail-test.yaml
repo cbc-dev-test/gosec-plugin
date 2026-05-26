@@ -37,3 +37,19 @@ jobs:
     with:
       policy-id: 9517fa03-035b-411c-a8d1-bafb4345697f
       input-data: ${{ needs.scan-and-evaluate.outputs.policy-subject }}
+  
+  deploy:
+    needs: 
+      - policy-evaluation
+    steps:
+      - id: print-gosec-outputs
+        name: Print gosec outputs
+        uses: docker://alpine:latest
+        run: |
+          echo "Gosec outputs:"
+          echo "Critical: ${{ steps.gosec-step.outputs.critical-count }}"
+          echo "Very high: ${{ steps.gosec-step.outputs.very-high-count }}"
+          echo "High: ${{ steps.gosec-step.outputs.high-count }}"
+          echo "Medium: ${{ steps.gosec-step.outputs.medium-count }}"
+          echo "Low: ${{ steps.gosec-step.outputs.low-count }}"
+          echo "Policy Subject: ${{ steps.gosec-step.outputs.policy-subject }}"
