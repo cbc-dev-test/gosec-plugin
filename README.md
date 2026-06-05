@@ -1,4 +1,4 @@
 # sonarQube-Golang-Scan
 
-v1
+v1.0
 
