@@ -16,13 +16,13 @@ jobs:
       - name: checkout Source Code
         uses: cloudbees-io/checkout@v2
       
-      - id: print-env-secrets
-        name: Print Env Secrets
-        uses: docker://alpine:latest
-        run: |
-          echo "Env Secrets:"
-          echo "Username: ${{ secrets.CB_SONARQUBE_USERNAME }}"
-          echo "Pwd: ${{ secrets.CB_SONARQUBE_PASSWORD }}"
+      # - id: print-env-secrets
+      #   name: Print Env Secrets
+      #   uses: docker://alpine:latest
+      #   run: |
+      #     echo "Env Secrets:"
+      #     echo "Username: ${{ secrets.CB_SONARQUBE_USERNAME }}"
+      #     echo "Pwd: ${{ secrets.CB_SONARQUBE_PASSWORD }}"
 
       - id: sonar-step
         name: Setup sonarqube explicit scanner with community edition
